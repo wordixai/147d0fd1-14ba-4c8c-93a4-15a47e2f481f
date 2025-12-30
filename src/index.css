@@ -2,17 +2,163 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-The @apply directive should not be used with the group utility class.
-*/
-
 @layer base {
   :root {
-   
+    /* Space background */
+    --background: 240 15% 5%;
+    --foreground: 180 100% 90%;
+
+    /* Neon arcade palette */
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 15% 5%;
+    --primary-glow: 180 100% 70%;
+
+    --secondary: 300 100% 60%;
+    --secondary-foreground: 240 15% 5%;
+    --secondary-glow: 300 100% 80%;
+
+    --accent: 60 100% 50%;
+    --accent-foreground: 240 15% 5%;
+    --accent-glow: 60 100% 70%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-glow: 0 100% 70%;
+
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 10% 60%;
+
+    --card: 240 15% 8%;
+    --card-foreground: 180 100% 90%;
+
+    --border: 240 20% 20%;
+    --input: 240 15% 15%;
+    --ring: 180 100% 50%;
+
+    --popover: 240 15% 8%;
+    --popover-foreground: 180 100% 90%;
+
+    --radius: 0.5rem;
+
+    /* Game-specific tokens */
+    --player-color: 180 100% 50%;
+    --enemy-color: 300 100% 60%;
+    --bullet-color: 60 100% 60%;
+    --explosion-color: 30 100% 60%;
+
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsl(180 100% 50% / 0.6), 0 0 40px hsl(180 100% 50% / 0.3);
+    --glow-secondary: 0 0 20px hsl(300 100% 60% / 0.6), 0 0 40px hsl(300 100% 60% / 0.3);
+    --glow-accent: 0 0 20px hsl(60 100% 50% / 0.6), 0 0 40px hsl(60 100% 50% / 0.3);
+    --glow-explosion: 0 0 30px hsl(30 100% 60% / 0.8), 0 0 60px hsl(0 100% 50% / 0.4);
+
+    /* Grid background */
+    --grid-color: hsl(180 100% 50% / 0.05);
   }
 
-  .dark {
-
+  * {
+    @apply border-border;
   }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Orbitron', 'Segoe UI', system-ui, sans-serif;
+  }
+}
+
+/* Import Orbitron font for retro-futuristic feel */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+/* Game container styles */
+.game-container {
+  background:
+    linear-gradient(180deg, hsl(var(--background)) 0%, hsl(240 20% 8%) 100%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 50px,
+      var(--grid-color) 50px,
+      var(--grid-color) 51px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      var(--grid-color) 50px,
+      var(--grid-color) 51px
+    );
+}
+
+/* HUD styles */
+.hud-text {
+  text-shadow: var(--glow-primary);
+  font-family: 'Orbitron', monospace;
+}
+
+.hud-text-accent {
+  text-shadow: var(--glow-accent);
+  font-family: 'Orbitron', monospace;
+}
+
+.hud-text-secondary {
+  text-shadow: var(--glow-secondary);
+  font-family: 'Orbitron', monospace;
+}
+
+/* Screen shake animation */
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, -1px); }
+  20% { transform: translate(2px, 2px); }
+  30% { transform: translate(-1px, 2px); }
+  40% { transform: translate(1px, -1px); }
+  50% { transform: translate(-2px, 1px); }
+  60% { transform: translate(2px, -2px); }
+  70% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+  90% { transform: translate(-1px, 2px); }
+}
+
+.screen-shake {
+  animation: shake 0.15s ease-in-out;
+}
+
+/* Pulse glow animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px hsl(180 100% 50% / 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px hsl(180 100% 50% / 0.9));
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 1s ease-in-out infinite;
+}
+
+/* Level transition */
+@keyframes level-flash {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.level-flash {
+  animation: level-flash 0.5s ease-out forwards;
+}
+
+/* Scanline effect */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsl(0 0% 0% / 0.03) 2px,
+    hsl(0 0% 0% / 0.03) 4px
+  );
+  pointer-events: none;
 }

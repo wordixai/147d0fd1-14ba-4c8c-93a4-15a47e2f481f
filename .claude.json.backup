@@ -1,0 +1,14 @@
+{
+  "cachedStatsigGates": {
+    "tengu_log_1p_events": true,
+    "tengu_disable_bypass_permissions_mode": false,
+    "tengu_tool_pear": false,
+    "tengu_thinkback": false,
+    "tengu_prompt_suggestion": true
+  },
+  "userID": "7e911b3fc62e30c2fd93526d696147579718e58e136d5205687c736837d616b2",
+  "firstStartTime": "2025-12-30T13:50:03.326Z",
+  "sonnet45MigrationComplete": true,
+  "opus45MigrationComplete": true,
+  "thinkingMigrationComplete": true
+}
